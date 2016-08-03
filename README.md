@@ -1,4 +1,4 @@
-# Metaheuristic
+# Graph Partition with Metaheuristics
 
 ## Enumeration
 
