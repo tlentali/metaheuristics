@@ -1,3 +1,7 @@
+/***************************************************
+Le nombre de classe peut etre changé a la ligne 98
+****************************************************/
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -46,25 +50,19 @@ int eval(int** matAdj, int nbSommets, vector<int> sol) {
 	return val;
 }
 
-vector<int> neighborhood(vector<int> sol, int** matAdj) {
-	vector<int> solbest(sol.size());
-	vector<int> solcurrent(sol.size());
-	solbest = sol;
+bool critmetro(int delta, float t) {
+	double r;
+	if (delta <= 0)
+		return true;
+	else {
+		r = (double) rand();
 
-	for (int i = 0; i < sol.size(); i++) {
-		for (int j = i + 1; j < sol.size(); j++) {
-			solcurrent = sol;
-			swap(solcurrent[i], solcurrent[j]);
-			if (eval(matAdj, sol.size(), solcurrent)
-					< eval(matAdj, sol.size(), solbest)) {
-				solbest = solcurrent;
-			}
-		}
+		return exp(-(delta / t)) > (r / RAND_MAX);
 	}
-	return solbest;
 }
 
 int main() {
+
 	vector<string> nomFichier;
 	nomFichier.push_back("quatreSommets.txt");
 	nomFichier.push_back("cinqSommets.txt");
@@ -84,30 +82,35 @@ int main() {
 	nomFichier.push_back("dixMilleSommets.txt");
 
 	stringstream sstm;
-	ofstream ofic("desc.dat", ios::out);
+	ofstream ofic("recuit.dat", ios::out);
 
-
-
-	for (int p = 0; p < 1; p++) {
-
-		srand(clock());
+	for (int p = 0; p < 17; p++) {
 vector<int> vsol;
 	vector<float> vtime;
 	for(int q=0; q<5; q++)
 	
 	{
+		srand(clock());
+
+/*****************NOMBRE DE CLASSE****************
+*/
+
 		int base = 3;
+
+/*
+*************************************************/
+
+		
+
 		float temps_initial = 0, temps_final = 0, temps_cpu = 0;
 		temps_initial = clock();
 
-		vector<int> sol, best, bestall;
 		//lecture
 		int nbSommets = 0, nbAretes = 0, dmin = 0, dmax = 0, **mat1, *deg,
-				**matAdj, temp1, temp2, temp3;
+				**matAdj;
 		string jeux;
 
 		ifstream ific(nomFichier[p].c_str(), ios::in);
-
 
 		if (ific == 0) {
 			cerr << "Impossible d'ouvrir le fichier !" << endl;
@@ -152,17 +155,6 @@ vector<int> vsol;
 
 		ific.close();
 
-		/*for (int c = 0; c < nbAretes; c++) {
-		 for (int cc = 0; cc < 3; cc++) {
-		 cout << mat1[c][cc] << " ";
-		 }
-		 cout << endl;
-		 }
-
-		 for (int d = 0; d < nbSommets; d++) {
-		 cout << deg[d] << endl;
-		 }*/
-
 		matAdj = new int*[nbSommets]; //creation de la matrice d'adjacance
 		for (int e = 0; e < nbSommets; e++) {
 			matAdj[e] = new int[nbSommets];
@@ -179,47 +171,82 @@ vector<int> vsol;
 			matAdj[mat1[i][1] - 1][mat1[i][0] - 1] = mat1[i][2];
 		}
 
-		//Debut de la descente
+		/*Recuit*/
+		int palier = 0, temp = 0, accept = 0;
+		float t = 10;
 
-		bestall = rsol(base, nbSommets);
-		for (int i = 0; i < 20; ++i) {
+		vector<int> s;
+		vector<int> sprim;
+		vector<int> best;
 
-			//generation solution de base aleatoire
-			sol = rsol(base, nbSommets);
-			/*for (int i = 0; i < nbSommets; ++i) {
-			 cout<<sol[i];
-			 }
-			 cout<<endl;*/
-			//debut de la descente dans le voisinage
-			best = neighborhood(sol, matAdj);
-			while (eval(matAdj, nbSommets, best) != eval(matAdj, nbSommets, sol)) {
-				sol = best;
-				best = neighborhood(sol, matAdj);
+		s = rsol(base, nbSommets);
+		best = s;
+		/*cout << "Sol de base : ";
+		for (int i = 0; i < nbSommets; ++i) {
+			cout << s[i] << " ";
+		}
+		cout << endl;
+*/
+		while (palier < 10) {
+			//cout << palier << endl;
+			temp = 0;
+			while (temp < 10000) {
+				sprim = s;
+				bool egal = true;
+				int a, b = 0;
+
+				while (egal) {
+					a = rand() % nbSommets;
+					b = rand() % nbSommets;
+					egal = (s[a] == s[b]);
+
+				}
+
+				swap(sprim[a], sprim[b]);
+
+				if (critmetro(
+						eval(matAdj, nbSommets, sprim)
+								- eval(matAdj, nbSommets, s), t)) {
+					s = sprim;
+					accept++;
+					if (eval(matAdj, nbSommets, best)
+							> eval(matAdj, nbSommets, s)) {
+						best = s;
+					}
+
+				}
+
+				temp++;
 			}
-			if (eval(matAdj, nbSommets, best)
-					< eval(matAdj, nbSommets, bestall)) {
-				bestall = best;
-			}
+			t = t * 0.9;
+			palier++;
+			/*if (eval(matAdj, nbSommets, s) == eval(matAdj, nbSommets, sprim))
+			 palier++;
+			 else
+			 palier = 0;*/
 
 		}
 
-		/*ofic << nomFichier[p] << endl;
-		ofic << "Best sol : ";
+		
+		/*ofic << "Best sol : ";
 		for (int i = 0; i < nbSommets; ++i) {
-			ofic << bestall[i] << " ";
+			ofic << s[i] << " ";
 		}
 		ofic << endl;
 		ofic << "Le nombre minimum d'aretes interclasse est : "
-				<< eval(matAdj, nbSommets, bestall) << endl;
+				<< eval(matAdj, nbSommets, best) << endl;
+
 		temps_final = clock();
 		//Calcul du temps d'execution:
 		temps_cpu = (temps_final - temps_initial) / CLOCKS_PER_SEC * 1000;
 		ofic << "Temps d'execution: " << temps_cpu << " millisecondes." << endl
 				<< endl;*/
-
+temps_final = clock();
+	temps_cpu = (temps_final - temps_initial) / CLOCKS_PER_SEC * 1000;
+	vtime.push_back(temps_cpu);
+	vsol.push_back(eval(matAdj, nbSommets, best));
 }
 	ofic<<nomFichier[p]<<endl;
-
 	int mins = vsol[0];
 	int maxs = vsol[0];
 	float mint= vtime[0];
@@ -254,8 +281,8 @@ vector<int> vsol;
 	
 
 
-	}
 
+	}
 	return 0;
 }
 

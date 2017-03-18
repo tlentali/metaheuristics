@@ -1,0 +1,117 @@
+quatreSommets.txt
+Meilleure solution : 3
+Pire solution : 3
+Moyenne : 3
+
+Meilleure temps : 1.967
+Pire temps : 2.126
+Moyenne : 2.0318
+
+cinqSommets.txt
+Meilleure solution : 6
+Pire solution : 7
+Moyenne : 6.2
+
+Meilleure temps : 3.91
+Pire temps : 4.597
+Moyenne : 4.3058
+
+dixSommets.txt
+Meilleure solution : 18
+Pire solution : 19
+Moyenne : 18.2
+
+Meilleure temps : 39.177
+Pire temps : 39.461
+Moyenne : 39.3174
+
+quinzeSommets.txt
+Meilleure solution : 61
+Pire solution : 62
+Moyenne : 61.2
+
+Meilleure temps : 173.302
+Pire temps : 174.588
+Moyenne : 174.155
+
+dixSeptSommets.txt
+Meilleure solution : 82
+Pire solution : 82
+Moyenne : 82
+
+Meilleure temps : 279.346
+Pire temps : 287.503
+Moyenne : 281.268
+
+vingtEtunSommets.txt
+Meilleure solution : 144
+Pire solution : 144
+Moyenne : 144
+
+Meilleure temps : 630.103
+Pire temps : 658.279
+Moyenne : 643.06
+
+vingtDeuxSommets.txt
+Meilleure solution : 143
+Pire solution : 143
+Moyenne : 143
+
+Meilleure temps : 754.865
+Pire temps : 774.364
+Moyenne : 762.678
+
+vingtTroisSommets.txt
+Meilleure solution : 156
+Pire solution : 157
+Moyenne : 156.4
+
+Meilleure temps : 895.387
+Pire temps : 900.883
+Moyenne : 898.537
+
+vingtQuatreSommets.txt
+Meilleure solution : 175
+Pire solution : 175
+Moyenne : 175
+
+Meilleure temps : 1060.57
+Pire temps : 1072.39
+Moyenne : 1065.73
+
+vingtCinqSommets.txt
+Meilleure solution : 204
+Pire solution : 204
+Moyenne : 204
+
+Meilleure temps : 1242.97
+Pire temps : 1258.63
+Moyenne : 1250.56
+
+trenteSommets.txt
+Meilleure solution : 260
+Pire solution : 261
+Moyenne : 260.4
+
+Meilleure temps : 2523.69
+Pire temps : 2555
+Moyenne : 2534.11
+
+cinquanteSommets.txt
+Meilleure solution : 270
+Pire solution : 277
+Moyenne : 273.8
+
+Meilleure temps : 19022.2
+Pire temps : 19219.7
+Moyenne : 19093.8
+
+centSommets.txt
+Meilleure solution : 1154
+Pire solution : 1168
+Moyenne : 1161.2
+
+Meilleure temps : 297815
+Pire temps : 298966
+Moyenne : 298500
+

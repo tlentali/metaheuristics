@@ -1,3 +1,9 @@
+
+/***************************************************
+Le nombre de classe peut etre changé a la ligne 54
+****************************************************/
+
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -40,7 +46,16 @@ int main() {
 
 	for (int p = 0; p < 5; p++) {
 
+
+
+/*****************NOMBRE DE CLASSE****************
+*/
+
 		int base = 3;
+
+/*
+*************************************************/
+		
 		float temps_initial = 0, temps_final = 0, temps_cpu = 0;
 		temps_initial = clock();
 		/*

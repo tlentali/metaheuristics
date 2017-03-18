@@ -1,0 +1,126 @@
+quatreSommets.txt
+Meilleure solution : 3
+Pire solution : 3
+Moyenne : 3
+
+Meilleure temps : 0.178
+Pire temps : 0.242
+Moyenne : 0.2006
+
+cinqSommets.txt
+Meilleure solution : 6
+Pire solution : 6
+Moyenne : 6
+
+Meilleure temps : 0.241
+Pire temps : 0.3
+Moyenne : 0.2654
+
+dixSommets.txt
+Meilleure solution : 18
+Pire solution : 18
+Moyenne : 18
+
+Meilleure temps : 2.77
+Pire temps : 3.001
+Moyenne : 2.8678
+
+quinzeSommets.txt
+Meilleure solution : 61
+Pire solution : 61
+Moyenne : 61
+
+Meilleure temps : 11.463
+Pire temps : 12.682
+Moyenne : 12.1844
+
+dixSeptSommets.txt
+Meilleure solution : 81
+Pire solution : 81
+Moyenne : 81
+
+Meilleure temps : 13.292
+Pire temps : 15.403
+Moyenne : 14.1558
+
+vingtSommets.txt
+Meilleure solution : 55
+Pire solution : 55
+Moyenne : 55
+
+Meilleure temps : 52.224
+Pire temps : 64.16
+Moyenne : 57.6184
+
+vingtEtunSommets.txt
+Meilleure solution : 144
+Pire solution : 144
+Moyenne : 144
+
+Meilleure temps : 22.783
+Pire temps : 25.778
+Moyenne : 23.8434
+
+vingtDeuxSommets.txt
+Meilleure solution : 143
+Pire solution : 143
+Moyenne : 143
+
+Meilleure temps : 52.906
+Pire temps : 57.799
+Moyenne : 55.628
+
+vingtTroisSommets.txt
+Meilleure solution : 156
+Pire solution : 156
+Moyenne : 156
+
+Meilleure temps : 45.576
+Pire temps : 50.729
+Moyenne : 47.4088
+
+vingtQuatreSommets.txt
+Meilleure solution : 175
+Pire solution : 175
+Moyenne : 175
+
+Meilleure temps : 32.618
+Pire temps : 37.657
+Moyenne : 34.4122
+
+vingtCinqSommets.txt
+Meilleure solution : 204
+Pire solution : 204
+Moyenne : 204
+
+Meilleure temps : 43.289
+Pire temps : 48.479
+Moyenne : 45.962
+
+trenteSommets.txt
+Meilleure solution : 260
+Pire solution : 260
+Moyenne : 260
+
+Meilleure temps : 298.243
+Pire temps : 329.142
+Moyenne : 315.047
+
+cinquanteSommets.txt
+Meilleure solution : 268
+Pire solution : 270
+Moyenne : 269
+
+Meilleure temps : 5285.87
+Pire temps : 5651.94
+Moyenne : 5391.34
+
+centSommets.txt
+Meilleure solution : 1133
+Pire solution : 1143
+Moyenne : 1138
+
+Meilleure temps : 163141
+Pire temps : 179903
+Moyenne : 170511
+

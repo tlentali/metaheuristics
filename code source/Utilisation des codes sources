@@ -1,0 +1,6 @@
+Le projet est composé de 4 fichiers ".cpp", un par algorithme.
+Afin d'executer nos progammes, depuis un terminal GNU/Linux, se rendre dans le repertoir du .cpp à l'aide de la commande 'cd', 
+ce repertoire doit egalement contenir les .txt des graphes, ils seront tous lu automatiquement. 
+Ecrire 'g++ -o nomDuFichier nomDuFichier.cpp' appuyer sur entrée 
+puis écrire './nomDuFichier' 
+Un fichier sera alors crée à coté du .cpp contenant les solutions touvées par l'algorithme.

@@ -1,3 +1,7 @@
+/***************************************************
+Le nombre de classe peut etre changé a la ligne 116
+****************************************************/
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -46,15 +50,29 @@ int eval(int** matAdj, int nbSommets, vector<int> sol) {
 	return val;
 }
 
-bool critmetro(int delta, float t) {
-	double r;
-	if (delta <= 0)
-		return true;
-	else {
-		r = (double) rand();
+pair<int, int> neighborhood(vector<int> sol, int** matAdj,
+		vector<pair<int, int> > tabou) {
+	vector<int> solbest(sol.size());
+	vector<int> solcurrent(sol.size());
+	solbest = sol;
+	pair<int, int> tuple = make_pair(sol.size(), sol.size());
+	pair<int, int> tuple2;
+	for (int i = 0; i < sol.size(); i++) {
+		for (int j = i + 1; j < sol.size(); j++) {
 
-		return exp(-(delta / t)) > (r / RAND_MAX);
+			tuple2 = make_pair(i, j);
+			if (find(tabou.begin(), tabou.end(), tuple2) == tabou.end()) {
+				solcurrent = sol;
+				swap(solcurrent[i], solcurrent[j]);
+				if (eval(matAdj, sol.size(), solcurrent)
+						< eval(matAdj, sol.size(), solbest)) {
+					solbest = solcurrent;
+					tuple = make_pair(i, j);
+				}
+			}
+		}
 	}
+	return tuple;
 }
 
 int main() {
@@ -78,20 +96,30 @@ int main() {
 	nomFichier.push_back("dixMilleSommets.txt");
 
 	stringstream sstm;
-	ofstream ofic("recuit10.dat", ios::out);
+	ofstream ofic("tabu.dat", ios::out);
 
 	for (int p = 0; p < 17; p++) {
+
+		srand(clock());
+
 vector<int> vsol;
 	vector<float> vtime;
 	for(int q=0; q<5; q++)
 	
 	{
-		srand(clock());
+
+
+
+/*****************NOMBRE DE CLASSE****************
+*/
+
 		int base = 3;
 
-		float temps_initial = 0, temps_final = 0, temps_cpu = 0;
-		temps_initial = clock();
+/*
+*************************************************/
 
+
+		vector<int> sol, best, bestall;
 		//lecture
 		int nbSommets = 0, nbAretes = 0, dmin = 0, dmax = 0, **mat1, *deg,
 				**matAdj;
@@ -142,6 +170,20 @@ vector<int> vsol;
 
 		ific.close();
 
+		/*for (int c = 0; c < nbAretes; c++) {
+		 for (int cc = 0; cc < 3; cc++) {
+		 cout << mat1[c][cc] << " ";
+		 }
+		 cout << endl;
+		 }
+
+		 for (int d = 0; d < nbSommets; d++) {
+		 cout << deg[d] << endl;
+		 }*/
+
+		float temps_initial = 0, temps_final = 0, temps_cpu = 0;
+		temps_initial = clock();
+
 		matAdj = new int*[nbSommets]; //creation de la matrice d'adjacance
 		for (int e = 0; e < nbSommets; e++) {
 			matAdj[e] = new int[nbSommets];
@@ -158,76 +200,69 @@ vector<int> vsol;
 			matAdj[mat1[i][1] - 1][mat1[i][0] - 1] = mat1[i][2];
 		}
 
-		/*Recuit*/
-		int palier = 0, temp = 0, accept = 0;
-		float t = 10;
+		//Debut du tabou
+		pair<int, int> tuple;
+		vector<pair<int, int> > tabou;
+		bestall = rsol(base, nbSommets);
 
-		vector<int> s;
-		vector<int> sprim;
-		vector<int> best;
+		for (int i = 0; i < 20; ++i) {
 
-		s = rsol(base, nbSommets);
-		best = s;
-		/*cout << "Sol de base : ";
-		for (int i = 0; i < nbSommets; ++i) {
-			cout << s[i] << " ";
-		}
-		cout << endl;
-*/
-		while (palier < 10) {
-			//cout << palier << endl;
-			temp = 0;
-			while (temp < 10000) {
-				sprim = s;
-				bool egal = true;
-				int a, b = 0;
-
-				while (egal) {
-					a = rand() % nbSommets;
-					b = rand() % nbSommets;
-					egal = (s[a] == s[b]);
-
+			//generation solution de base aleatoire
+			sol = rsol(base, nbSommets);
+			/*for (int i = 0; i < nbSommets; ++i) {
+			 cout<<sol[i];
+			 }
+			 cout<<endl;*/
+			//debut de la descente dans le voisinage
+			tuple = neighborhood(sol, matAdj, tabou);
+			if (tuple != make_pair(nbSommets, nbSommets)
+					and tuple.first != tuple.second) {
+				best = sol;
+				swap(best[tuple.first], best[tuple.second]);
+				if (tabou.size() >= 8) {
+					tabou.erase(tabou.begin());
 				}
+				tabou.push_back(tuple);
 
-				swap(sprim[a], sprim[b]);
-
-				if (critmetro(
-						eval(matAdj, nbSommets, sprim)
-								- eval(matAdj, nbSommets, s), t)) {
-					s = sprim;
-					accept++;
-					if (eval(matAdj, nbSommets, best)
-							> eval(matAdj, nbSommets, s)) {
-						best = s;
-					}
-
-				}
-
-				temp++;
 			}
-			t = t * 0.9;
-			palier++;
-			/*if (eval(matAdj, nbSommets, s) == eval(matAdj, nbSommets, sprim))
-			 palier++;
-			 else
-			 palier = 0;*/
+			if (best.size() != nbSommets) {
+				best = sol;
+			}
+			for (int j = 0; j < 50; ++j) {
+				sol = best;
+				tuple = neighborhood(sol, matAdj, tabou);
+				if (tuple != make_pair(nbSommets, nbSommets)
+						and tuple.first != tuple.second) {
+					best = sol;
+					swap(best[tuple.first], best[tuple.second]);
+					if (tabou.size() >= 8) {
+						tabou.erase(tabou.begin());
+					}
+					tabou.push_back(tuple);
+				}
+			}
+			if (eval(matAdj, nbSommets, best)
+					< eval(matAdj, nbSommets, bestall)) {
+				bestall = best;
+			}
 
 		}
+		temps_final = clock();
 
-		
-		/*ofic << "Best sol : ";
+
+		/*ofic << nomFichier[p] << endl;
+		ofic << "Best sol : ";
 		for (int i = 0; i < nbSommets; ++i) {
-			ofic << s[i] << " ";
+			ofic << bestall[i] << " ";
 		}
 		ofic << endl;
 		ofic << "Le nombre minimum d'aretes interclasse est : "
-				<< eval(matAdj, nbSommets, best) << endl;
-
-		temps_final = clock();
+				<< eval(matAdj, nbSommets, bestall) << endl;
 		//Calcul du temps d'execution:
 		temps_cpu = (temps_final - temps_initial) / CLOCKS_PER_SEC * 1000;
-		ofic << "Temps d'execution: " << temps_cpu << " millisecondes." << endl
-				<< endl;*/
+		ofic << "Temps d'execution: " << temps_cpu << " millisecondes." << endl<<endl;*/
+
+	
 temps_final = clock();
 	temps_cpu = (temps_final - temps_initial) / CLOCKS_PER_SEC * 1000;
 	vtime.push_back(temps_cpu);
@@ -267,9 +302,8 @@ temps_final = clock();
 	ofic<<"Moyenne : "<<moyennet<<endl<<endl;
 	
 
+}
 
-
-	}
 	return 0;
 }
 

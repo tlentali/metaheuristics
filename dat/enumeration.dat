@@ -1,0 +1,30 @@
+quatreSommets.txt
+Un exemple de solution minimal:
+0 0 1 2 
+Le nombre minimum d'aretes interclasse est : 3
+Temps d'execution: 0.146 millisecondes.
+
+cinqSommets.txt
+Un exemple de solution minimal:
+0 0 1 1 2 
+Le nombre minimum d'aretes interclasse est : 6
+Temps d'execution: 0.189 millisecondes.
+
+dixSommets.txt
+Un exemple de solution minimal:
+0 0 0 1 2 2 2 0 1 1 
+Le nombre minimum d'aretes interclasse est : 18
+Temps d'execution: 62.348 millisecondes.
+
+quinzeSommets.txt
+Un exemple de solution minimal:
+0 0 0 1 1 1 1 0 1 2 2 2 2 2 0 
+Le nombre minimum d'aretes interclasse est : 61
+Temps d'execution: 11772.5 millisecondes.
+
+dixSeptSommets.txt
+Un exemple de solution minimal:
+0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 2 
+Le nombre minimum d'aretes interclasse est : 81
+Temps d'execution: 346104 millisecondes.
+
